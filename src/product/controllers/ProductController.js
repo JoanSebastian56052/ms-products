@@ -1,7 +1,4 @@
 'use strict'
-const loggerHandler = require('scg-ms-logs-node');
-loggerHandler.getLogger(__filename)
-
 const ajv = require('ajv');
 
 const createProductSchema = require('../../schemas/schemas').createProductSchema;

@@ -2,7 +2,6 @@
 
 const aws = require('aws-sdk')
 const DynamoDBValue = require('dynamodb-value');
-const loggerHandler = require('scg-ms-logs-node');
 const resolveCliInput = require('serverless/lib/utils/resolveCliInput');
 const Constant = require('../../commons/Constants.js');
 const {
@@ -16,7 +15,6 @@ const {
 const productModel = require('../../models/productModel');
 
 aws.config.update({ region: process.env.region });
-loggerHandler.getLogger(__filename);
 
 class ProductDAO {
 
