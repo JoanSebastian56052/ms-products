@@ -1,8 +1,6 @@
 'use strict'
-const loggerHandler = require('scg-ms-logs-node');
 const DynamoDBValue = require('dynamodb-value');
 const resolveCliInput = require('serverless/lib/utils/resolveCliInput');
-loggerHandler.getLogger(__filename)
 
 const {
     BAD_REQUEST,
