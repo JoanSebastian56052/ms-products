@@ -48,7 +48,7 @@ functions:
               Content-Type: "'application/json'"
   create-products:
     handler: index.createProductHandler
-    description: microservice for create products.
+    description: microservice for create products
     events: 
       - http:
           method: post
