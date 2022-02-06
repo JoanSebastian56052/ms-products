@@ -12,7 +12,7 @@ provider:
   timeout: 10
   memorySize: 512
   deploymentBucket:
-    name: awseast- 
+    name: codepipeline-us-east-1-508274382610
   iamRoleStatements:
     - Effect: Allow
       Action:
