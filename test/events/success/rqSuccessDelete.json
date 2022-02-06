@@ -1,0 +1,9 @@
+{
+    "path": "/v1/store/products",
+    "httpMethod": "DELETE",
+    "method": "delete",
+    "query": {
+        "id": 1
+    },
+    "body": {}
+}

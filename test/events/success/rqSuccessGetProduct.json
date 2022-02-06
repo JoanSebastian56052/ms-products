@@ -1,0 +1,9 @@
+{
+    "path": "/v1/store/products",
+    "httpMethod": "GET",
+    "method": "get",
+    "query": {
+        "id": 1
+    },
+    "body": {}
+}
