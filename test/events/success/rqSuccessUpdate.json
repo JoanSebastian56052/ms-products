@@ -1,0 +1,17 @@
+{
+    "path": "/v1/store/products",
+    "httpMethod": "PUT",
+    "method": "put",
+    "query": {
+
+    },
+    "body": {
+        "id": 1,
+        "name": "Camiseta",
+        "description": "Camiseta tipo polo",
+        "price": "100",
+        "feature": false,
+        "countrySale": "Colombia",
+        "priceDiscount": "50"
+    }
+}

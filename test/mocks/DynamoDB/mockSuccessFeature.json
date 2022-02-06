@@ -1,0 +1,23 @@
+{
+    "Items":[
+        {
+            "id": {"N": 1},
+            "name": { "S": "Camiseta"},
+            "description": { "S": "Camiseta"},
+            "price":  { "S": "100"},
+            "feature":  { "BOOL": true},
+            "countrySale":  { "S": "Colombia"},
+            "priceDiscount": {"S": "50"}
+        },
+        {
+            "id": {"N": 2},
+            "name": { "S": "Camiseta"},
+            "description": { "S": "Camiseta"},
+            "price":  { "S": "100"},
+            "feature":  { "BOOL": true},
+            "countrySale":  { "S": "Colombia"},
+            "priceDiscount": {"S": "50"}
+        }
+    ],
+    "Count": 1
+}
