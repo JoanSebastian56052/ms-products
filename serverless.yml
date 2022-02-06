@@ -33,7 +33,7 @@ provider:
 functions:
   products-feature:
     handler: index.productsFeatureHandler
-    description: microservice for products.
+    description: microservice for feature products.
     events: 
       - http:
           method: get
