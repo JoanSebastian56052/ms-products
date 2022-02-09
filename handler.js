@@ -38,4 +38,4 @@ app.post('/v1/store/products',async (req, res) => {
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT);
-console.log(`Runing port ${port}`);
+console.log(`Runing port ${PORT}`);
