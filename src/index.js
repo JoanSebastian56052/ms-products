@@ -9,20 +9,20 @@ module.exports.productsFeatureHandler = async  (event, context, callback) => {
 
 module.exports.createProductHandler = (event, context, callback) => {
     let productController = new ProductController();
-    productController.createProduct(event, context, callback);
+    return productController.createProduct(event, context, callback);
 }
 
 module.exports.updateProductHandler = (event, context, callback) => {
     let productController = new ProductController();
-    productController.updateProduct(event, context, callback);
+    return productController.updateProduct(event, context, callback);
 }
 
 module.exports.deleteProductHandler = (event, context, callback) => {
     let productController = new ProductController();
-    productController.deleteProduct(event, context, callback);
+    return productController.deleteProduct(event, context, callback);
 }
 
 module.exports.getProductHanlder = (event, context, callback) => {
     let productController = new ProductController();
-    productController.getProduct(event, context, callback);
+    return productController.getProduct(event, context, callback);
 }

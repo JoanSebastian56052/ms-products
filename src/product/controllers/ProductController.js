@@ -21,7 +21,8 @@ class ProductController {
         let response = {};
         try {
             let productService = new ProductService();
-            let productFeature = await productService.getProductFeature(callback);
+            let productFeature = await productService.getProductFeature();
+
 
             if(productFeature.length) {
                 response = {
@@ -52,7 +53,7 @@ class ProductController {
             const validateSchema = new ajv().compile(createProductSchema);
             if(validateSchema(body)) {
                 let productService = new ProductService();
-                let createProduct = await productService.createProduct(body, callback);
+                let createProduct = await productService.createProduct(body);
                 if(createProduct) {
                     response = {
                         status: SUCCESS_RESPONSE,
@@ -71,12 +72,12 @@ class ProductController {
                     status: BAD_REQUEST
                 };
             }
-            callback(null, response);
+            return response;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR
             };
-            callback(null, response);
+            return response;
         }
     }
 
@@ -87,7 +88,7 @@ class ProductController {
             const validateSchema = new ajv().compile(updateProductSchema);
             if(validateSchema(body)) {
                 let productService = new ProductService();
-                let updateProduct = await productService.updateProduct(body, callback);
+                let updateProduct = await productService.updateProduct(body);
                 if(updateProduct) {
                     response = {
                         status: UPDATE_SUCCESS,
@@ -106,12 +107,12 @@ class ProductController {
                     status: BAD_REQUEST
                 };
             }
-            callback(null, response);
+            return response;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR
             };
-            callback(null, response);
+            return response;
         }
     }
 
@@ -120,7 +121,7 @@ class ProductController {
         try {
             let idProduct = event.query.id;
             let productService = new ProductService();
-            let deleteProduct = await productService.deleteProduct(idProduct, callback);
+            let deleteProduct = await productService.deleteProduct(idProduct);
             if(deleteProduct) {
                 response = {
                     status: DELETE_SUCCESS,
@@ -134,12 +135,12 @@ class ProductController {
                     }
                 }
             }
-            callback(null, response);
+            return response;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR
             };
-            callback(null, response);
+            return response;
         }
     }
 
@@ -162,12 +163,12 @@ class ProductController {
                     }
                 };
             }
-            callback(null, response);
+            return response;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR
             };
-            callback(null, response);
+            return response;
         }
     }
 
