@@ -27,31 +27,25 @@ class ProductDAO {
 
     getProductFeature() {
 
-        let params = {}
-        params.TableName = Constant.DYNAMODB.TABLE_NAME_PRODUCTS;
-        params.ProjectionExpression = "#feature";
-        params.FilterExpression = "#feature = :f";
-        params.ExpressionAttributeNames = {
-            "#feature": "feature"
-        };
-        params.ExpressionAttributeValues = {
-            ":f": {BOOL: true}
-        };
-
         //Return with dynamoDB return this.dynamodb.scan(params).promise();
-        const data = require('../../commons/data/data.json')
-        return {Items: data};
+        const dataFeatured = require('../../commons/data/dataFeatured.json')
+        const result = [];
+        dataFeatured.forEach((item)=>{
+            //pushes only unique element
+            if(!result.find(element => item.id == element.id)){
+                result.push(item);
+            }
+        })
+        return {Items: result};
     }
 
     createProduct(body) {
         let item = productModel(body);
-        let params = {
-            Item: DynamoDBValue.toDDB(item),
-            TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
-        }
 
+        
         let data = require('../../commons/data/data.json')
         data.push(body);
+        
         // The absolute path of the new file with its name
         var filepath = ".\\src\\commons\\data\\data.json";
         fs.writeFile(filepath, JSON.stringify(data), (err) => {
@@ -63,10 +57,6 @@ class ProductDAO {
     }
 
     updateProduct(body) {
-        let params = {
-            Item: DynamoDBValue.toDDB(productModel(body)),
-            TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
-        }
 
         let data = require('../../commons/data/data.json')
         let product = data.find(item => item.id == body.id);
@@ -84,10 +74,6 @@ class ProductDAO {
     }
 
     async deleteProduct(idProduct) {
-        let params = {}
-        params.TableName = Constant.DYNAMODB.TABLE_NAME_PRODUCTS;
-        params.Key = DynamoDBValue.toDDB({ id: idProduct });
-        params.ReturnValues = "ALL_OLD"
 
         let data = require('../../commons/data/data.json')
         let product = data.find(item => item.id == idProduct);
@@ -104,29 +90,20 @@ class ProductDAO {
     }
 
     getProduct(idProduct) {
-        let params = {}
-        params.TableName = Constant.DYNAMODB.TABLE_NAME_PRODUCTS;
-        params.ProjectionExpression = "#id";
-        params.FilterExpression = "#id = :id";
-        params.ExpressionAttributeNames = {
-            "#id": "id"
-        };
-        params.ExpressionAttributeValues = {
-            ":id": {"N": idProduct.toString()}
-        };
-
         const data = require('../../commons/data/data.json');
+        let product = data.find(item => item.id == idProduct);
+        let dataFeatured = require('../../commons/data/dataFeatured.json')
+        dataFeatured.push(product)
+        var filepath = ".\\src\\commons\\data\\dataFeatured.json";
+        fs.writeFile(filepath, JSON.stringify(dataFeatured), (err) => {
+            if (err) throw err;
+            console.log("The file was succesfully saved!");
+        });
         //Return get  product dynamoDB return this.dynamodb.query(params).promise();
-        return data.find(item => item.id == idProduct);
+        return product;
     }
 
     getIdProduct() {
-        /* Return scan dynamoDB
-        let params = {
-            TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
-        }
-
-        return this.dynamodb.scan(params).promise();*/
         const data = require('../../commons/data/data.json');
         return {Items: data};
     }

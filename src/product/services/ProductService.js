@@ -22,14 +22,7 @@ class ProductService {
         try {
             let productDAO = new ProductDAO();
             let listItems = await productDAO.getProductFeature();
-            let itemsFeature = [];
-            listItems.Items.forEach(element => {
-                const item = element;
-                if(item.feature) {
-                    itemsFeature.push(item);
-                }
-            })
-            return itemsFeature;
+            return listItems.Items;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR,
