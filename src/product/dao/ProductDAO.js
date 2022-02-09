@@ -4,6 +4,9 @@ const aws = require('aws-sdk')
 const DynamoDBValue = require('dynamodb-value');
 const resolveCliInput = require('serverless/lib/utils/resolveCliInput');
 const Constant = require('../../commons/Constants.js');
+
+const fs = require('fs');
+
 const {
     BAD_REQUEST,
     SUCCESS_RESPONSE,
@@ -35,7 +38,8 @@ class ProductDAO {
             ":f": {BOOL: true}
         };
 
-        return this.dynamodb.scan(params).promise();
+        //Return with dynamoDB return this.dynamodb.scan(params).promise();
+        return data;
     }
 
     createProduct(body) {
@@ -45,7 +49,12 @@ class ProductDAO {
             TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
         }
 
-        return this.dynamodb.putItem(params).promise();
+        const data = require('../../commons/data/data.json')
+        data.push(body);
+        fs.writeFileSync('../../commons/data/data.json', data);
+
+        //Return create product dynamoDB return this.dynamodb.putItem(params).promise();
+        return body;
     }
 
     updateProduct(body) {
@@ -54,7 +63,14 @@ class ProductDAO {
             TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
         }
 
-        return this.dynamodb.putItem(params).promise();
+        const data = require('../../commons/data/data.json')
+
+        let indexProduct = data.indexOf(item => item.id == idProduct);
+        data.slice(indexProduct, 1, body);
+        fs.writeFileSync('../../commons/data/data.json', data);
+
+        //Return update product dynamoDB return this.dynamodb.putItem(params).promise();
+        return body;
     }
 
     deleteProduct(idProduct) {
@@ -63,7 +79,14 @@ class ProductDAO {
         params.Key = DynamoDBValue.toDDB({ id: idProduct });
         params.ReturnValues = "ALL_OLD"
 
-        return this.dynamodb.deleteItem(params).promise();
+        const data = require('../../commons/data/data.json')
+        let product = data.find(item => item.id == idProduct);
+        let indexProduct = data.indexOf(item => item.id == idProduct);
+
+        data.slice(indexProduct, 1);
+        fs.writeFileSync('../../commons/data/data.json', data);
+        //Return delete product dynamoDB return this.dynamodb.deleteItem(params).promise();
+        return product;
     }
 
     getProduct(idProduct) {
@@ -78,15 +101,20 @@ class ProductDAO {
             ":id": {"N": idProduct.toString()}
         };
 
-        return this.dynamodb.query(params).promise();
+        const data = require('../../commons/data/data.json');
+        //Return get  product dynamoDB return this.dynamodb.query(params).promise();
+        return data.find(item => item.id == idProduct);
     }
 
     getIdProduct() {
+        /* Return scan dynamoDB
         let params = {
             TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
         }
 
-        return this.dynamodb.scan(params).promise();
+        return this.dynamodb.scan(params).promise();*/
+        const data = require('../../commons/data/data.json');
+        return {Items: data};
     }
 
 }

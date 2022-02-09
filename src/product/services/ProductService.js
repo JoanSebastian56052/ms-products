@@ -25,7 +25,7 @@ class ProductService {
             let itemsFeature = [];
 
             listItems.Items.forEach(element => {
-                const item = DynamoDBValue.toJavascript(element);
+                const item = element;
                 if(item.feature) {
                     itemsFeature.push(item);
                 }

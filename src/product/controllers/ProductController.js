@@ -36,12 +36,12 @@ class ProductController {
                     }
                 };
             }
-            callback(null, response);
+             return response;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR
             };
-            callback(null, response);
+            return response;
         }
     }
 

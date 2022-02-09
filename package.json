@@ -8,6 +8,8 @@
     "coverage": "coverage"
   },
   "scripts": {
+    "dev": "nodemon handler.js",
+    "start": "node handler.js",
     "test": "nyc --reporter=lcov --reporter=text mocha --recursive --reporter=nyan",
     "test-win": "nyc --reporter=lcov --reporter=text mocha --reporter=nyan",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -R ./test/*.js",
@@ -38,11 +40,15 @@
     "axios": "^0.15.3",
     "btoa": "^1.2.1",
     "dynamodb-value": "^1.0.5",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15",
     "nyc": "^15.1.0",
     "scg-ms-logs-node": "^1.0.6",
     "serverless": "^1.72.0",
     "uuid": "^8.3.0",
     "uuidv4": "^6.2.12"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }

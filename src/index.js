@@ -1,10 +1,10 @@
 'use strict'
 const { v4: uuidv4 } = require('uuid');
-const ProductController = require('./src/product/controllers/ProductController.js');
+const ProductController = require('./product/controllers/ProductController.js');
 
-module.exports.productsFeatureHandler = (event, context, callback) => {
+module.exports.productsFeatureHandler = async  (event, context, callback) => {
     let productController = new ProductController();
-    productController.getProductFeature(event, context, callback);
+    return productController.getProductFeature(event, context, callback);
 }
 
 module.exports.createProductHandler = (event, context, callback) => {
