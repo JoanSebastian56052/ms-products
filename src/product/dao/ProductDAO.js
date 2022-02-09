@@ -32,8 +32,8 @@ class ProductDAO {
         const result = [];
         dataFeatured.forEach((item)=>{
             //pushes only unique element
-            let exist = (result ? result.find(element => item.id == element.id) : result.push(item));
-            if(!exist){
+            
+            if(!result || !result.find(element => item.id == element.id)){
                 item.priceDiscount = (Number(item.price) - (Number(item.price) * Number(item.discount) / 100));
                 result.push(item);
             }
