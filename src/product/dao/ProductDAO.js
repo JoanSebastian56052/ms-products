@@ -33,10 +33,12 @@ class ProductDAO {
         console.log(dataFeatured);
         dataFeatured.forEach((item)=>{
             //pushes only unique element
-            let exist = (result.length ? result.find(element => item.id == element.id) : "");
-            if(!exist){
-                item.priceDiscount = (Number(item.price) - (Number(item.price) * Number(item.discount) / 100));
-                result.push(item);
+            if(item) {
+                let exist = (result.length ? result.find(element => item.id == element.id) : "");
+                if(!exist){
+                    item.priceDiscount = (Number(item.price) - (Number(item.price) * Number(item.discount) / 100));
+                    result.push(item);
+                }
             }
         })
         return {Items: result};
