@@ -1,8 +1,8 @@
-const createProductHandler = require('../index').createProductHandler;
-const deleteProductHandler = require('../index').deleteProductHandler;
-const getProductHanlder = require('../index').getProductHanlder;
-const productsFeatureHandler = require('../index').productsFeatureHandler;
-const updateProductHandler = require('../index').updateProductHandler;
+const createProductHandler = require('../src/index').createProductHandler;
+const deleteProductHandler = require('../src/index').deleteProductHandler;
+const getProductHanlder = require('../src/index').getProductHanlder;
+const productsFeatureHandler = require('../src/index').productsFeatureHandler;
+const updateProductHandler = require('../src/index').updateProductHandler;
 const Constants = require('../src/commons/Constants.js');
 
 const expect = require('chai').expect;
