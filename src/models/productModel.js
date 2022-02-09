@@ -4,7 +4,7 @@ const productModel = (item) => {
         name: item.name,
         description: item.description,
         price: item.price,
-        discount: item.discount,
+        priceDiscount: item.priceDiscount,
         images: item.images,
         countrySale: item.countrySale
     }

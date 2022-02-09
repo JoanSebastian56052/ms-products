@@ -39,7 +39,8 @@ class ProductDAO {
         };
 
         //Return with dynamoDB return this.dynamodb.scan(params).promise();
-        return data;
+        const data = require('../../commons/data/data.json')
+        return {Items: data};
     }
 
     createProduct(body) {
@@ -49,10 +50,14 @@ class ProductDAO {
             TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
         }
 
-        const data = require('../../commons/data/data.json')
+        let data = require('../../commons/data/data.json')
         data.push(body);
-        fs.writeFileSync('../../commons/data/data.json', data);
-
+        // The absolute path of the new file with its name
+        var filepath = ".\\src\\commons\\data\\data.json";
+        fs.writeFile(filepath, JSON.stringify(data), (err) => {
+            if (err) throw err;
+            console.log("The file was succesfully saved!");
+        }); 
         //Return create product dynamoDB return this.dynamodb.putItem(params).promise();
         return body;
     }
@@ -63,28 +68,37 @@ class ProductDAO {
             TableName: Constant.DYNAMODB.TABLE_NAME_PRODUCTS
         }
 
-        const data = require('../../commons/data/data.json')
+        let data = require('../../commons/data/data.json')
+        let product = data.find(item => item.id == body.id);
+        let indexProduct = data.indexOf(product);
 
-        let indexProduct = data.indexOf(item => item.id == idProduct);
-        data.slice(indexProduct, 1, body);
-        fs.writeFileSync('../../commons/data/data.json', data);
+        data.splice(indexProduct, 1, body);
+        var filepath = ".\\src\\commons\\data\\data.json";
+        fs.writeFile(filepath, JSON.stringify(data), (err) => {
+            if (err) throw err;
+            console.log("The file was succesfully saved!");
+        }); 
 
         //Return update product dynamoDB return this.dynamodb.putItem(params).promise();
         return body;
     }
 
-    deleteProduct(idProduct) {
+    async deleteProduct(idProduct) {
         let params = {}
         params.TableName = Constant.DYNAMODB.TABLE_NAME_PRODUCTS;
         params.Key = DynamoDBValue.toDDB({ id: idProduct });
         params.ReturnValues = "ALL_OLD"
 
-        const data = require('../../commons/data/data.json')
+        let data = require('../../commons/data/data.json')
         let product = data.find(item => item.id == idProduct);
-        let indexProduct = data.indexOf(item => item.id == idProduct);
+        let indexProduct = data.indexOf(product);
 
-        data.slice(indexProduct, 1);
-        fs.writeFileSync('../../commons/data/data.json', data);
+        data.splice(indexProduct, 1);
+        var filepath = ".\\src\\commons\\data\\data.json";
+        fs.writeFile(filepath, JSON.stringify(data), (err) => {
+            if (err) throw err;
+            console.log("The file was succesfully saved!");
+        }); 
         //Return delete product dynamoDB return this.dynamodb.deleteItem(params).promise();
         return product;
     }

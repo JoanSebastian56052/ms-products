@@ -2,7 +2,7 @@
   "name": "ms-products",
   "version": "1.0.0",
   "description": "Service Service that exposes the information of Clothesstore LATAM products",
-  "main": "index.js",
+  "main": "handler.js",
   "directories": {
     "test": "test",
     "coverage": "coverage"

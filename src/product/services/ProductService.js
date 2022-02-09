@@ -23,7 +23,6 @@ class ProductService {
             let productDAO = new ProductDAO();
             let listItems = await productDAO.getProductFeature();
             let itemsFeature = [];
-
             listItems.Items.forEach(element => {
                 const item = element;
                 if(item.feature) {
@@ -48,7 +47,8 @@ class ProductService {
             let item = body;
             let isValidDiscount = this.validateDiscount(item);
             if(isValidDiscount) {
-                item.id = (listItems.Count ? listItems.Count : listItems.length);
+                let id = (listItems.Items.length ? Number(listItems.Items[listItems.Items.length - 1].id) + 1 : 1);
+                item.id = id
                 let product = productModel(item);
                 return await productDAO.createProduct(product);
             } else {
@@ -106,10 +106,10 @@ class ProductService {
     }
 
     validateDiscount(item) {
-        if(Constants.COUNTRY.HIGH_DISCOUNT.indexOf(item.countrySale.toUpperCase()) && Constants.DISCOUNTS.HIGH >= Number(item.priceDiscount)) {
+        if(Constants.COUNTRY.HIGH_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) != -1 && Constants.DISCOUNTS.HIGH >= Number(item.priceDiscount)) {
             return true;
         }
-        if(Constants.COUNTRY.LOW_DISCOUNT.indexOf(item.countrySale.toUpperCase()) && Constants.DISCOUNTS.LOW >= Number(item.priceDiscount)) {
+        if(Constants.COUNTRY.LOW_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) && Constants.DISCOUNTS.LOW >= Number(item.priceDiscount)) {
             return true;
         }
         return false;
