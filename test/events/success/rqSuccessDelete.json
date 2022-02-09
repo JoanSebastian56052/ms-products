@@ -3,7 +3,7 @@
     "httpMethod": "DELETE",
     "method": "delete",
     "query": {
-        "id": 1
+        "id": 5
     },
     "body": {}
 }

@@ -39,6 +39,7 @@ class ProductController {
             }
              return response;
         } catch (error) {
+            console.log(error)
             response = {
                 status: INTERNAL_ERROR
             };

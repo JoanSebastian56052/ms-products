@@ -22,14 +22,7 @@ class ProductService {
         try {
             let productDAO = new ProductDAO();
             let listItems = await productDAO.getProductFeature();
-            let itemsFeature = [];
-            listItems.Items.forEach(element => {
-                const item = element;
-                if(item.feature) {
-                    itemsFeature.push(item);
-                }
-            })
-            return itemsFeature;
+            return listItems.Items;
         } catch (error) {
             response = {
                 status: INTERNAL_ERROR,
@@ -106,10 +99,10 @@ class ProductService {
     }
 
     validateDiscount(item) {
-        if(Constants.COUNTRY.HIGH_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) != -1 && Constants.DISCOUNTS.HIGH >= Number(item.priceDiscount)) {
+        if(Constants.COUNTRY.HIGH_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) != -1 && Constants.DISCOUNTS.HIGH >= Number(item.discount)) {
             return true;
         }
-        if(Constants.COUNTRY.LOW_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) && Constants.DISCOUNTS.LOW >= Number(item.priceDiscount)) {
+        if(Constants.COUNTRY.LOW_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) && Constants.DISCOUNTS.LOW >= Number(item.discount)) {
             return true;
         }
         return false;

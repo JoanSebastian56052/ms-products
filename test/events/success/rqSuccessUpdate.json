@@ -6,12 +6,11 @@
 
     },
     "body": {
-        "id": 1,
+        "id": 3,
         "name": "Camiseta",
         "description": "Camiseta tipo polo",
-        "price": "100",
-        "feature": false,
+        "price": "500",
         "countrySale": "Colombia",
-        "priceDiscount": "50"
+        "discount": "50"
     }
 }

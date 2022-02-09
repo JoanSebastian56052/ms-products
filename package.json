@@ -45,6 +45,7 @@
     "nyc": "^15.1.0",
     "scg-ms-logs-node": "^1.0.6",
     "serverless": "^1.72.0",
+    "supertest": "^6.2.2",
     "uuid": "^8.3.0",
     "uuidv4": "^6.2.12"
   },

@@ -3,7 +3,7 @@
     "httpMethod": "GET",
     "method": "get",
     "query": {
-        "id": 1
+        "id": 7
     },
     "body": {}
 }
