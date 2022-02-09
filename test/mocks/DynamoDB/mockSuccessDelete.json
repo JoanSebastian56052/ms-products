@@ -7,7 +7,7 @@
             "price":  { "S": "100"},
             "feature":  { "BOOL": false},
             "countrySale":  { "S": "Colombia"},
-            "priceDiscount": {"S": "50"}
+            "discount": {"S": "50"}
         }
     ],
     "Count": 1

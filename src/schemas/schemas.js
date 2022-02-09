@@ -19,7 +19,7 @@ const createProductSchema = {
         "name",
         "description",
         "price",
-        "priceDiscount",
+        "discount",
         "feature",
         "countrySale"
     ],
@@ -55,10 +55,10 @@ const createProductSchema = {
                 ""
             ]
         },
-        "priceDiscount": {
-            "$id": "#/properties/priceDiscount",
+        "discount": {
+            "$id": "#/properties/discount",
             "type": "string",
-            "title": "The priceDiscount schema",
+            "title": "The discount schema",
             "description": "An explanation about the purpose of this instance.",
             "default": "",
             "examples": [
@@ -120,8 +120,7 @@ const updateProductSchema = {
         "name",
         "description",
         "price",
-        "priceDiscount",
-        "feature",
+        "discount",
         "countrySale"
     ],
     "additionalProperties": true,
@@ -166,20 +165,10 @@ const updateProductSchema = {
                 ""
             ]
         },
-        "priceDiscount": {
-            "$id": "#/properties/priceDiscount",
+        "discount": {
+            "$id": "#/properties/discount",
             "type": "string",
-            "title": "The priceDiscount schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": "",
-            "examples": [
-                ""
-            ]
-        },
-        "feature": {
-            "$id": "#/properties/feature",
-            "type": "boolean",
-            "title": "The feature schema",
+            "title": "The discount schema",
             "description": "An explanation about the purpose of this instance.",
             "default": "",
             "examples": [

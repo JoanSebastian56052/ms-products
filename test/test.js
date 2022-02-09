@@ -26,75 +26,59 @@ const mockSuccessUpdate = require('./mocks/DynamoDB/mockSuccessUpdate.json');
 const mockSuccessFeature = require('./mocks/DynamoDB/mockSuccessFeature.json');
 const mockSuccessDelete = require('./mocks/DynamoDB/mockSuccessDelete.json');
 
+var express = require('express'); // (npm install --save express)
+const request = require('supertest');
 
 describe('Create Product Test', function () {
     this.timeout(0);
-
+    let server;
     describe('Success 201', function () {
-        before((done) => {
-
-            AWS.mock("DynamoDB", "putItem", function (params, callback) {
-                if(params.TableName == Constants.DYNAMODB.TABLE_NAME_PRODUCTS) {
-                    callback(null, mockSuccessCreate);
-                }
-            });
-            AWS.mock("DynamoDB", "scan", function (params, callback) {
-                if(params.TableName == Constants.DYNAMODB.TABLE_NAME_PRODUCTS) {
-                    callback(null, mockSuccessGetIdProduct);
-                }
-            });
-            done();
+        beforeEach(function () {
+            server = require('../handler.js');
+        });
+        afterEach(function () {
+            server.close();
         });
     
         it('handler status 201', (done) => {
-            createProductHandler(rqSuccessCreate, {}, function (error, response) {
-                try {
-                    should.exist(response);
-                    expect(response.status.statusCode).to.equal(201);
-                    done();
-                } catch (error) {
-                    done(error);
-                }
-                
-            })
-        });
-    
-        after((done) => {
-            AWS.restore("DynamoDB");
-            done();
+            request(server)
+            .post('/v1/store/products')
+            .set('Content-Type', 'application/json')
+            .send(rqSuccessCreate.body)
+            .expect(200, function(err, res) {
+                if (err) { return done(err); }
+                expect(JSON.parse(res.text).status.statusCode).to.equal(201)
+                // Done
+                done();
+            });
         });
     });
 });
 
 describe('Delete Product Test', function () {
     this.timeout(0);
-
+    let server;
     describe('Success 201', function () {
         before((done) => {
-
-            AWS.mock("DynamoDB", "deleteItem", function (params, callback) {
-                if(params.TableName == Constants.DYNAMODB.TABLE_NAME_PRODUCTS) {
-                    callback(null, mockSuccessDelete);
-                }
-            });
+            server = require('../handler.js');
             done();
         });
     
         it('handler status 201', (done) => {
-            deleteProductHandler(rqSuccessDelete, {}, function (error, response) {
-                try {
-                    should.exist(response);
-                    expect(response.status.statusCode).to.equal(201);
-                    done();
-                } catch (error) {
-                    done(error);
-                }
-                
-            })
+            request(server)
+            .delete('/v1/store/products')
+            .set('Content-Type', 'application/json')
+            .query(rqSuccessDelete.query)
+            .expect(200, function(err, res) {
+                if (err) { return done(err); }
+                expect(JSON.parse(res.text).status.statusCode).to.equal(201)
+                // Done
+                done();
+            });
         });
     
         after((done) => {
-            AWS.restore("DynamoDB");
+            server.close();
             done();
         });
     });
@@ -102,33 +86,28 @@ describe('Delete Product Test', function () {
 
 describe('Feature Product Test', function () {
     this.timeout(0);
-
+    let server;
     describe('Success 201', function () {
         before((done) => {
-
-            AWS.mock("DynamoDB", "scan", function (params, callback) {
-                if(params.TableName == Constants.DYNAMODB.TABLE_NAME_PRODUCTS) {
-                    callback(null, mockSuccessFeature);
-                }
-            });
+            server = require('../handler.js');
             done();
         });
     
         it('handler status 201', (done) => {
-            productsFeatureHandler(rqSuccessFeature, {}, function (error, response) {
-                try {
-                    should.exist(response);
-                    expect(response.status.statusCode).to.equal(201);
-                    done();
-                } catch (error) {
-                    done(error);
-                }
-                
-            })
+            request(server)
+            .get('/v1/store/products/feature')
+            .set('Content-Type', 'application/json')
+            .send(rqSuccessFeature)
+            .expect(200, function(err, res) {
+                if (err) { return done(err); }
+                expect(JSON.parse(res.text).status.statusCode).to.equal(201)
+                // Done
+                done();
+            });
         });
     
         after((done) => {
-            AWS.restore("DynamoDB");
+            server.close()
             done();
         });
     });
@@ -136,33 +115,28 @@ describe('Feature Product Test', function () {
 
 describe('Get Product Product Test', function () {
     this.timeout(0);
-
+    let server;
     describe('Success 201', function () {
         before((done) => {
-
-            AWS.mock("DynamoDB", "query", function (params, callback) {
-                if(params.TableName == Constants.DYNAMODB.TABLE_NAME_PRODUCTS) {
-                    callback(null, mockSuccessGetProduct);
-                }
-            });
+            server = require('../handler.js');
             done();
         });
     
         it('handler status 201', (done) => {
-            getProductHanlder(rqSuccessGetProduct, {}, function (error, response) {
-                try {
-                    should.exist(response);
-                    expect(response.status.statusCode).to.equal(201);
-                    done();
-                } catch (error) {
-                    done(error);
-                }
-                
-            })
+            request(server)
+            .get('/v1/store/products')
+            .set('Content-Type', 'application/json')
+            .query(rqSuccessGetProduct.query)
+            .expect(200, function(err, res) {
+                if (err) { return done(err); }
+                expect(JSON.parse(res.text).status.statusCode).to.equal(201)
+                // Done
+                done();
+            });
         });
     
         after((done) => {
-            AWS.restore("DynamoDB");
+            server.close()
             done();
         });
     });
@@ -170,34 +144,29 @@ describe('Get Product Product Test', function () {
 
 describe('Update Product Test', function () {
     this.timeout(0);
-
+    let server;
     describe('Success 201', function () {
         before((done) => {
-
-            AWS.mock("DynamoDB", "putItem", function (params, callback) {
-                if(params.TableName == Constants.DYNAMODB.TABLE_NAME_PRODUCTS) {
-                    callback(null, mockSuccessUpdate);
-                }
-            });
+            server = require('../handler.js');
             done();
         });
     
         it('handler status 201', (done) => {
-            updateProductHandler(rqSuccessUpdate, {}, function (error, response) {
-                try {
-                    should.exist(response);
-                    expect(response.status.statusCode).to.equal(201);
-                    done();
-                } catch (error) {
-                    done(error);
-                }
-                
-            })
+            request(server)
+            .put('/v1/store/products')
+            .set('Content-Type', 'application/json')
+            .send(rqSuccessUpdate.body)
+            .expect(200, function(err, res) {
+                if (err) { return done(err); }
+                expect(JSON.parse(res.text).status.statusCode).to.equal(201)
+                // Done
+                done();
+            });
         });
     
         after((done) => {
-            AWS.restore("DynamoDB");
+            server.close()
             done();
         });
     });
-});
+})

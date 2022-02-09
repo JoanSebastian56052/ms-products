@@ -124,7 +124,7 @@ resources:
             AttributeType: S
           - AttributeName: "discount"
             AttributeType: S
-          - AttributeName: "priceDiscount"
+          - AttributeName: "discount"
             AttributeType: S
           - AttributeName: "images"
             AttributeType: M

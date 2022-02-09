@@ -11,6 +11,6 @@
         "price": "100",
         "feature": false,
         "countrySale": "Colombia",
-        "priceDiscount": "50"
+        "discount": "50"
     }
 }

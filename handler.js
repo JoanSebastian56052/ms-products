@@ -37,5 +37,9 @@ app.post('/v1/store/products',async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT);
-console.log(`Runing port ${PORT}`);
+var server = app.listen(PORT, function () {
+    var port = server.address().port;
+    console.log(`Runing port ${PORT}`);
+    console.log('Example app listening at port %s', port);
+});
+module.exports = server;

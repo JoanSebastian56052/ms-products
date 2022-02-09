@@ -99,10 +99,10 @@ class ProductService {
     }
 
     validateDiscount(item) {
-        if(Constants.COUNTRY.HIGH_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) != -1 && Constants.DISCOUNTS.HIGH >= Number(item.priceDiscount)) {
+        if(Constants.COUNTRY.HIGH_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) != -1 && Constants.DISCOUNTS.HIGH >= Number(item.discount)) {
             return true;
         }
-        if(Constants.COUNTRY.LOW_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) && Constants.DISCOUNTS.LOW >= Number(item.priceDiscount)) {
+        if(Constants.COUNTRY.LOW_DISCOUNT.find(country => country == item.countrySale.toUpperCase()) && Constants.DISCOUNTS.LOW >= Number(item.discount)) {
             return true;
         }
         return false;

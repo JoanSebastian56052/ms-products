@@ -32,7 +32,9 @@ class ProductDAO {
         const result = [];
         dataFeatured.forEach((item)=>{
             //pushes only unique element
-            if(!result.find(element => item.id == element.id)){
+            let exist = (result ? result.push(item) : result.find(element => item.id == element.id));
+            if(!exist){
+                item.priceDiscount = (Number(item.price) - (Number(item.price) * Number(item.discount) / 100));
                 result.push(item);
             }
         })
@@ -48,10 +50,7 @@ class ProductDAO {
         
         // The absolute path of the new file with its name
         var filepath = ".\\src\\commons\\data\\data.json";
-        fs.writeFile(filepath, JSON.stringify(data), (err) => {
-            if (err) throw err;
-            console.log("The file was succesfully saved!");
-        }); 
+        fs.writeFileSync(filepath, JSON.stringify(data)); 
         //Return create product dynamoDB return this.dynamodb.putItem(params).promise();
         return body;
     }
@@ -61,13 +60,9 @@ class ProductDAO {
         let data = require('../../commons/data/data.json')
         let product = data.find(item => item.id == body.id);
         let indexProduct = data.indexOf(product);
-
         data.splice(indexProduct, 1, body);
         var filepath = ".\\src\\commons\\data\\data.json";
-        fs.writeFile(filepath, JSON.stringify(data), (err) => {
-            if (err) throw err;
-            console.log("The file was succesfully saved!");
-        }); 
+        fs.writeFileSync(filepath, JSON.stringify(data)); 
 
         //Return update product dynamoDB return this.dynamodb.putItem(params).promise();
         return body;
@@ -81,10 +76,7 @@ class ProductDAO {
 
         data.splice(indexProduct, 1);
         var filepath = ".\\src\\commons\\data\\data.json";
-        fs.writeFile(filepath, JSON.stringify(data), (err) => {
-            if (err) throw err;
-            console.log("The file was succesfully saved!");
-        }); 
+        fs.writeFileSync(filepath, JSON.stringify(data)); 
         //Return delete product dynamoDB return this.dynamodb.deleteItem(params).promise();
         return product;
     }
@@ -95,10 +87,7 @@ class ProductDAO {
         let dataFeatured = require('../../commons/data/dataFeatured.json')
         dataFeatured.push(product)
         var filepath = ".\\src\\commons\\data\\dataFeatured.json";
-        fs.writeFile(filepath, JSON.stringify(dataFeatured), (err) => {
-            if (err) throw err;
-            console.log("The file was succesfully saved!");
-        });
+        fs.writeFileSync(filepath, JSON.stringify(dataFeatured));
         //Return get  product dynamoDB return this.dynamodb.query(params).promise();
         return product;
     }
