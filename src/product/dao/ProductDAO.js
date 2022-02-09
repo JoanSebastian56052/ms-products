@@ -30,8 +30,10 @@ class ProductDAO {
         //Return with dynamoDB return this.dynamodb.scan(params).promise();
         const dataFeatured = require('../../commons/data/dataFeatured.json')
         const result = [];
+        console.log(dataFeatured);
         dataFeatured.forEach((item)=>{
             //pushes only unique element
+            console.log(item);
             let exist = (result.length ? result.find(element => item.id == element.id) : "");
             if(!exist){
                 item.priceDiscount = (Number(item.price) - (Number(item.price) * Number(item.discount) / 100));
